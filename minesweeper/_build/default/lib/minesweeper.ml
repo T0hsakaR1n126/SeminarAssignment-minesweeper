@@ -111,7 +111,7 @@ let is_valid_coord board row col =
 let rec reveal_cell board row col =
   if not (is_valid_coord board row col) then board
   else
-    (*Find the cell and check the state of cell. Only deal with the cell whose state is hidden. The cell with this state need to be changed.*)
+    (* Find the cell and check the state of cell. Only deal with the cell whose state is hidden. The cell with this state need to be changed.*)
     let cell = board.cells.(row).(col) in
     match cell.state with
     | Revealed -> board
@@ -124,10 +124,10 @@ let rec reveal_cell board row col =
       new_cells.(row).(col) <- new_cell;
       let new_board = { board with cells = new_cells } in
       
-      (*Reveal on a blank cell(Number 0) will automatically reveal all adjacent blank areas.*)
+      (* Reveal on a blank cell(Number 0) will automatically reveal all adjacent blank areas. *)
       match new_cell.content with
       | Number 0 ->
-        (*From left-top corner to right-bottom corner, algorithm check the state of cell one by one.*)
+        (* From left-top corner to right-bottom corner, algorithm check the state of cell one by one. *)
         let rec reveal_all_neighbors b dr dc =
           if dr > 1 then b
           else if dc > 1 then reveal_all_neighbors b (dr + 1) (-1)
@@ -145,7 +145,7 @@ let rec reveal_cell board row col =
             else
               reveal_all_neighbors b dr (dc + 1)
         in
-        (*recursive start.*)
+        (* recursive start. *)
         reveal_all_neighbors new_board (-1) (-1)
       | _ -> new_board
 
@@ -155,7 +155,7 @@ let toggle_flag board row col =
   else
     let cell = board.cells.(row).(col) in
     match cell.state with
-    | Revealed -> board (* revealed cells cannot be flagged *)
+    | Revealed -> board (* revealed cells cannot be flagged. *)
     | Hidden -> 
       let new_cell = { cell with state = Flagged } in
       let new_cells = Array.copy board.cells in

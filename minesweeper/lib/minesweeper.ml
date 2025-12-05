@@ -155,7 +155,7 @@ let toggle_flag board row col =
   else
     let cell = board.cells.(row).(col) in
     match cell.state with
-    | Revealed -> board (* revealed cells cannot be flagged *)
+    | Revealed -> board (* revealed cells cannot be flagged. *)
     | Hidden -> 
       let new_cell = { cell with state = Flagged } in
       let new_cells = Array.copy board.cells in
