@@ -82,7 +82,7 @@ let rec game_loop board =
   (* Handling the revealing operation of user and check game's state. *)
   | `Reveal (row, col) ->
     let cell = board.cells.(row).(col) in
-    match cell.content with
+    let result = match cell.content with
     | Mine -> 
       print_endline "Game Over! You hit a mine!";
       print_endline "Final board:";
@@ -97,7 +97,9 @@ let rec game_loop board =
         `Win
       ) else
         game_loop new_board
-  
+    in
+    result
+    
   | `Flag (row, col) ->
     let new_board = toggle_flag board row col in
     game_loop new_board
